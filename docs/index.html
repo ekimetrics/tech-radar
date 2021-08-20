@@ -2,16 +2,22 @@
 
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-<title>Zalando Tech Radar</title>
-<link rel="shortcut icon" href="https://www.zalando.de/favicon.ico">
-
+<title>Ekimetrics Tech Radar</title>
+<link rel="shortcut icon" href="https://ekimetrics.com/wp-content/uploads/2020/05/cropped-Favicon-32x32.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="radar.js"></script>
 
 <link rel="stylesheet" href="radar.css">
 </head>
 
-<body>
+<style>
+text{
+  color: red;
+}
+</style>
+
+<body style="background-color:#16293c;color:#fff!important;font-family:'Inter'">
 
 <svg id="radar"></svg>
 
@@ -21,11 +27,11 @@ radar_visualization({
   width: 1450,
   height: 1000,
   colors: {
-    background: "#fff",
+    background: "#16293c",
     grid: "#bbb",
     inactive: "#ddd"
   },
-  title: "Zalando Tech Radar — 2021.06",
+  title: "Ekimetrics Tech Radar — 2021.06",
   quadrants: [
     { name: "Languages" },
     { name: "Infrastructure" },
@@ -33,10 +39,10 @@ radar_visualization({
     { name: "Data Management" },
   ],
   rings: [
-    { name: "ADOPT", color: "#93c47d" },
-    { name: "TRIAL", color: "#93d2c2" },
-    { name: "ASSESS", color: "#fbdb84" },
-    { name: "HOLD", color: "#efafa9" }
+    { name: "ADOPT", color: "#329932" },
+    { name: "TRIAL", color: "#0080ff" },
+    { name: "ASSESS", color: "#e59400" },
+    { name: "HOLD", color: "#ff6666" }
   ],
   print_layout: true,
   // zoomed_quadrant: 0,
