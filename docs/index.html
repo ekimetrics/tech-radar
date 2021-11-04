@@ -4,7 +4,7 @@
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
 <title>Ekimetrics Tech Radar</title>
 <link rel="shortcut icon" href="https://ekimetrics.com/wp-content/uploads/2020/05/cropped-Favicon-32x32.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet"> 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="radar.js"></script>
 <script src="technos.js"></script>
@@ -52,21 +52,21 @@ radar_visualization({
   height: 1000,
   colors: {
     background: "#16293c",
-    grid: "#bbb",
+    grid: "#a3dbe8",
     inactive: "#ddd"
   },
   title: "Ekimetrics Tech Radar — 2021-09",
   quadrants: [
-    { name: "DataOps/DevOps/MLOps" },
-    { name: "Web Development" },
-    { name: "Data Science & AI" },
-    { name: "Data Engineering" },
+    { name: "DataOps/DevOps/MLOps", color: "#00ADD0" },
+    { name: "Web Development", color: "#2ADA9F" },
+    { name: "Data Science & AI", color: "#FF0000" },
+    { name: "Data Engineering", color: "#F3A60D" },
   ],
   rings: [
-    { name: "ADOPT", color: "#329932" },
-    { name: "TRIAL", color: "#0080ff" },
-    { name: "ASSESS", color: "#e59400" },
-    { name: "HOLD", color: "#ff6666" }
+    { name: "ADOPT", alpha: "ff" },
+    { name: "TRIAL", alpha: "bb"  },
+    { name: "ASSESS", alpha: "77" },
+    { name: "HOLD", alpha: "33" }
   ],
   print_layout: true,
   // zoomed_quadrant: 0,
