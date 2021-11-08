@@ -55,7 +55,7 @@ function radar_visualization(config) {
   ];
 
   const title_offset =
-    { x: -675, y: -420 };
+    { x: -675, y: -440 };
 
   const footer_offset =
     { x: -675, y: 420 };
@@ -150,7 +150,7 @@ function radar_visualization(config) {
     entry.x = point.x;
     entry.y = point.y;
     entry.color = entry.active || config.print_layout ?
-      config.rings[entry.ring].color : config.colors.inactive;
+      (config.quadrants[entry.quadrant].color + config.rings[entry.ring].alpha) : config.colors.inactive;
   }
 
   // partition entries according to segments
@@ -210,44 +210,47 @@ function radar_visualization(config) {
     .attr("x1", 0).attr("y1", -400)
     .attr("x2", 0).attr("y2", 400)
     .style("stroke", config.colors.grid)
-    .style("stroke-width", 1);
+    .style("stroke-width", 0.5);
   grid.append("line")
     .attr("x1", -400).attr("y1", 0)
     .attr("x2", 400).attr("y2", 0)
     .style("stroke", config.colors.grid)
-    .style("stroke-width", 1);
+    .style("stroke-width", 0.5);
 
   // background color. Usage `.attr("filter", "url(#solid)")`
   // SOURCE: https://stackoverflow.com/a/31013492/2609980
   var defs = grid.append("defs");
-  var filter = defs.append("filter")
-    .attr("x", 0)
-    .attr("y", 0)
-    .attr("width", 1)
-    .attr("height", 1)
-    .attr("id", "solid");
-  filter.append("feFlood")
-    .attr("flood-color", "rgb(0, 0, 0, 0.8)");
-  filter.append("feComposite")
-    .attr("in", "SourceGraphic");
+  for (var i = 0 ; i < config.quadrants.length ; i++) {
+    var filter = defs.append("filter")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", 1)
+      .attr("height", 1)
+      .attr("id", `solid-${config.quadrants[i].color}`);
+    filter.append("feFlood")
+      .attr("flood-color", config.quadrants[i].color+"88");
+    filter.append("feComposite")
+      .attr("in", "SourceGraphic");
+  }
+  
 
   // draw rings
-  for (var i = 0; i < rings.length; i++) {
+  for (var i = rings.length - 1 ; i >= 0 ; i--) {
     grid.append("circle")
       .attr("cx", 0)
       .attr("cy", 0)
       .attr("r", rings[i].radius)
-      .style("fill", "none")
+      .style("fill", "#a3dbe810")
       .style("stroke", config.colors.grid)
-      .style("stroke-width", 1);
-    if (config.print_layout) {
+      .style("stroke-width", 0.15*(i+1));
+    if (false) {        
       grid.append("text")
         .text(config.rings[i].name)
         .attr("y", -rings[i].radius + 62)
         .attr("text-anchor", "middle")
-        .style("fill", "#e5e5e5")
+        .style("fill", "#fff")
         .style("font-family", "Inter")
-        .style("font-size", "42px")
+        .style("font-size", "35px")
         .style("font-weight", "bold")
         .style("pointer-events", "none")
         .style("user-select", "none");
@@ -275,7 +278,8 @@ function radar_visualization(config) {
       .text(config.title)
       .style("font-family", "Inter")
       .style("fill","white")
-      .style("font-size", "34px");
+      .style("font-size", "34px")
+      .style("font-weight", "900");
 
     // footer
     radar.append("text")
@@ -289,6 +293,14 @@ function radar_visualization(config) {
     // legend
     var legend = radar.append("g");
     for (var quadrant = 0; quadrant < 4; quadrant++) {
+      legend.append("rect")
+        .attr("transform", translate(
+          legend_offset[quadrant].x,
+          legend_offset[quadrant].y - 70
+        ))
+        .style("height", "4px")
+        .style("width", "40px")
+        .style("fill", config.quadrants[quadrant].color)
       legend.append("text")
         .attr("transform", translate(
           legend_offset[quadrant].x,
@@ -297,7 +309,9 @@ function radar_visualization(config) {
         .text(config.quadrants[quadrant].name)
         .style("fill","white")
         .style("font-family", "Inter")
-        .style("font-size", "18px");
+        .style("font-weight", 900)
+        .style("font-size", "18px");    
+
       for (var ring = 0; ring < 4; ring++) {
         legend.append("text")
           .attr("transform", legend_transform(quadrant, ring))
@@ -321,10 +335,11 @@ function radar_visualization(config) {
               .style("fill","white")
               .style("font-family", "Inter")
               .style("font-size", "11px")
-              .on("mouseover", function(d) { showBubble(d); highlightLegendItem(d); })
+              .on("mouseover", function(d) { showBubble(d); highlightLegendItem(d, config.quadrants[d.quadrant].color); })
               .on("mouseout", function(d) { hideBubble(d); unhighlightLegendItem(d); });
       }
     }
+
   }
 
   // layer for entries
@@ -375,10 +390,10 @@ function radar_visualization(config) {
       .style("opacity", 0);
   }
 
-  function highlightLegendItem(d) {
+  function highlightLegendItem(d, color) {
     var legendItem = document.getElementById("legendItem" + d.id);
-    legendItem.setAttribute("filter", "url(#solid)");
-    legendItem.setAttribute("fill", "white");
+    legendItem.setAttribute("filter", `url(#solid-${color})`);
+    legendItem.setAttribute("fill", color);
   }
 
   function unhighlightLegendItem(d) {
@@ -394,7 +409,7 @@ function radar_visualization(config) {
       .append("g")
         .attr("class", "blip")
         .attr("transform", function(d, i) { return legend_transform(d.quadrant, d.ring, i); })
-        .on("mouseover", function(d) { showBubble(d); highlightLegendItem(d); })
+        .on("mouseover", function(d) { showBubble(d); highlightLegendItem(d, config.quadrants[d.quadrant].color); })
         .on("mouseout", function(d) { hideBubble(d); unhighlightLegendItem(d); });
 
   // configure each blip
