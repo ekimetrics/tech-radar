@@ -103,7 +103,7 @@ var radarData = [
     {"label":"MUI","quadrant":1,"ring":2,"moved":0.0,"active":true},
     {"label":"Svelt.JS","quadrant":1,"ring":2,"moved":0.0,"active":true},
     {"label":"Cosmos db","quadrant":1,"ring":2,"moved":0.0,"active":true},
-    {"label":"Firebase","quadrant":1,"ring":2,"moved":0.0,"active":true},
+    {"label":"Firestore","quadrant":1,"ring":2,"moved":0.0,"active":true},
     {"label":"Ionic","quadrant":1,"ring":0,"moved":0.0,"active":true},
     {"label":"Amazon Redshift","quadrant":3,"ring":2,"moved":0.0,"active":true},
     {"label":"Python ","quadrant":3,"ring":0,"moved":0.0,"active":true},
