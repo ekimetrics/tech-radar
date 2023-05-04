@@ -296,8 +296,8 @@ function radar_visualization(config) {
       legend.append("rect")
         .attr("transform", translate(
           legend_offset[quadrant].x,
-          // legend_offset[quadrant].y - 70
-          legend_offset[quadrant].y - 700
+          legend_offset[quadrant].y - 70
+          // legend_offset[quadrant].y - 700
 
           ))
         .style("height", "4px")
