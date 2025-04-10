@@ -27,7 +27,6 @@ var radarData = [
     {'label': 'FastAPI', 'quadrant': 3, 'ring': 0, 'moved': 0.0, 'active': true} ,
     {'label': 'Prefect', 'quadrant': 3, 'ring': 1, 'moved': 0.0, 'active': true} ,
     {'label': 'Snowflake', 'quadrant': 3, 'ring': 0, 'moved': 1, 'active': true} ,
-    {'label': 'purview', 'quadrant': 3, 'ring': 0, 'moved': 0.0, 'active': true} ,
     {'label': 'neo4J', 'quadrant': 3, 'ring': 0, 'moved': 0.0, 'active': true} ,
     {'label': 'Superset', 'quadrant': 3, 'ring': 1, 'moved': 0.0, 'active': true} ,
     {'label': 'Metabase', 'quadrant': 3, 'ring': 1, 'moved': 0.0, 'active': true} ,
